@@ -1,0 +1,105 @@
+import numpy as np
+import datetime
+
+
+
+asientos = np.arange(1, 101). astype(str). reshape(10, 10)
+
+def asis():
+  rut = input("Ingrese su rut (sin punto, ni guión): ")
+  return(rut)
+
+def precios():
+  print()
+  print("PRECIOS ENTRADAS")
+  print("Platinum, $120.000 (asientos del 1 al 20) \nGold, $80.000 (asientos del 21 al 50) \nSilver, $50.000 (asientos del 51 al 100)")
+
+asistentes = []
+
+cont1 = 0
+cont2 = 0
+cont3 = 0
+
+gan1 = 0
+gan2 = 0
+gan3 = 0
+
+platinum = 120000
+gold = 80000
+silver = 50000
+
+def comprar():
+  global cont1, cont2, cont3
+  global gan1, gan2, gan3
+  global platinum, gold, silver
+  precios()
+  print()
+  entr = int(input("Ingrese cantidad de entradas: "))
+  asientos_dispo()
+  if entr > 3:
+    print("Limite de entradas sobrepasado, intente nuevamente")
+  else:
+    for i in range(entr):
+      asnt = input("Número de asiento que comprara: ")
+      asientos[asientos == asnt] = "X"
+      print("\t\t ESCENARIO")
+      print(asientos)
+  if int(asnt) <= 20:
+    cont1 += 1
+    gan1 += platinum
+  elif int(asnt) > 20 and int(asnt) <= 50:
+    cont2 += 1
+    gan2 += gold
+  elif int(asnt) > 50 and int(asnt) <= 100:
+    cont3 += 1
+    gan3 += silver
+  print("COMPRA REALIZADA CORRECTAMENTE")
+
+cant = cont1+cont2+cont3
+tot = gan1+gan2+gan3
+
+def ganancias_totales():
+  print("GANANCIAS TOTALES")
+  print("Platinum |", cont1, gan1)
+  print("Gold     |", cont2, gan2)
+  print("Silver   |", cont3, gan3)
+  print("TOTAL    |", cant, tot)
+
+
+def asientos_dispo():
+  print("\t\t ESCENARIO")
+  print(asientos)
+
+
+
+def salir():
+  print("¡Hasta luego!")
+  print("Yuliana Román")
+  current_date = datetime.date.today()
+  print(current_date)
+
+
+
+while True:
+  print("\tMENÚ")
+  print("=========================")
+  print("1. Comprar entradas \n2. Mostrar ubicaciones disponibles \n3. Ver listado de asistentes \n4. Mostrar ganancias totales \n5. Salir")
+  print("=========================")
+
+  try:
+    op = int(input("Ingrese una opción: "))
+    if op == 1:
+      asistentes.append(asis())
+      comprar()
+    elif op == 2:
+      asientos_dispo()
+    elif op == 3:
+      asistentes.sort()
+      print(asistentes)
+    elif op == 4:
+      ganancias_totales()
+    elif op == 5:
+      salir()
+      break
+  except ValueError:
+    print("Valor no válido, intente nuevamente")
